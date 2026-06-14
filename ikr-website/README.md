@@ -5,7 +5,7 @@ Next.js marketing site for IKnowRight.
 ## Setup
 
 ```bash
-cd "IKR website"
+cd ikr-website
 npm install
 npm run dev
 ```

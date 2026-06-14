@@ -17,7 +17,7 @@
 **Beslissing:** CSS custom properties in `globals.css` als design tokens. Complexe Figma-layouts (vw positioning, clip-path) blijven inline styles — kleuren via `var(--ikr-*)`.
 
 ### Asset-structuur
-- `IKR website/public/images/` — live assets
+- `ikr-website/public/images/` — live assets
 - `design/` — Figma-referenties, nooit deployed
 
 ### Navbar
