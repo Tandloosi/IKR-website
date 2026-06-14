@@ -4,7 +4,13 @@ import { useSearchParams } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import type { ContactType, MessageTopic } from '@/lib/contact-types'
+import {
+  getMessageTopicsForType,
+  isValidMessageTopicForType,
+  type ContactType,
+  type MessageTopic,
+} from '@/lib/contact-types'
+import { IKR_PHONE, IKR_PHONE_HREF } from '@/data/site-contact'
 import { bodyFont, displayFont, ikr } from '@/lib/ikr-styles'
 import { TurnstileWidget } from './TurnstileWidget'
 
@@ -23,29 +29,6 @@ const contactTypes: { id: ContactType; title: string; subtitle: string }[] = [
     id: 'solliciteren',
     title: 'Ik wil solliciteren.',
     subtitle: 'voor als je op zoek bent naar werk als freelancer',
-  },
-]
-
-const messageTopics: { id: MessageTopic; title: string; subtitle: string }[] = [
-  {
-    id: 'offerte',
-    title: 'Ik wil graag een offerte.',
-    subtitle: 'prijsindicatie of pakket op maat',
-  },
-  {
-    id: 'gesprek',
-    title: 'Ik wil een gesprek plannen.',
-    subtitle: 'kennismaking of intake',
-  },
-  {
-    id: 'vraag',
-    title: 'Ik heb een concrete vraag.',
-    subtitle: 'over diensten, cases of samenwerking',
-  },
-  {
-    id: 'anders',
-    title: 'Anders.',
-    subtitle: 'typ zelf je bericht hieronder',
   },
 ]
 
@@ -370,15 +353,17 @@ function ContactInfoCard() {
               />
             </svg>
           </div>
-          <span
+          <a
+            href={IKR_PHONE_HREF}
             style={{
               ...displayFont,
               fontSize: 'clamp(0.875rem, 1.67vw, 24px)',
               color: '#FEFEFE',
+              textDecoration: 'none',
             }}
           >
-            04 71 49 75 12
-          </span>
+            {IKR_PHONE}
+          </a>
         </div>
       </div>
     </div>
@@ -402,8 +387,24 @@ export function ContactPageContent() {
   }, [searchParams])
 
   const setField = <K extends keyof FormData>(key: K, value: FormData[K]) => {
-    setForm((prev) => ({ ...prev, [key]: value }))
+    setForm((prev) => {
+      const next = { ...prev, [key]: value }
+      if (key === 'contactType' && value && typeof value === 'string') {
+        const type = value as ContactType
+        if (
+          next.messageTopic &&
+          !isValidMessageTopicForType(type, next.messageTopic)
+        ) {
+          next.messageTopic = null
+          next.bericht = ''
+        }
+      }
+      return next
+    })
   }
+
+  const messageTopics =
+    form.contactType !== null ? getMessageTopicsForType(form.contactType) : []
 
   const personalComplete =
     form.voornaam.trim().length > 0 &&

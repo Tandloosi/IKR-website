@@ -4,7 +4,7 @@ import { PricingPageContent } from '@/components/ikr/PricingPageContent'
 import { SiteFooter } from '@/components/ikr/SiteFooter'
 
 export const metadata: Metadata = {
-  title: 'Pricing — IKnowRight',
+  title: 'Prijzen — IKnowRight',
   description: 'Vraag onze tarieven vrijblijvend aan en ontvang onze prijs-PDF in je inbox.',
 }
 

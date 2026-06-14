@@ -20,7 +20,7 @@ _(geen)_
 - **Resend suppression:** `contact@iknowright.be` kan opnieuw suppressed raken bij bounce — check Resend dashboard als notify uitblijft
 
 ## Contact (`/contact`)
-_(geen — flow getest en werkend lokaal)_
+- **Live test:** creator/solliciteren topics + mail subjects nog verifiëren op Vercel-URL (lokaal ok, build ok)
 
 ## Cases (`/cases`)
 _(geen blockers — v1 klaar)_

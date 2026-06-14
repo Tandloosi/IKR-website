@@ -2,10 +2,11 @@ import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import {
   CONTACT_TYPE_LABELS,
+  getContactEmailSubject,
+  isValidMessageTopicForType,
   MESSAGE_TOPIC_LABELS,
   type ContactRequestPayload,
   type ContactType,
-  type MessageTopic,
 } from '@/lib/contact-types'
 import { verifyTurnstileToken } from '@/lib/turnstile'
 
@@ -22,7 +23,6 @@ function escapeHtml(value: string): string {
 }
 
 const CONTACT_TYPES: ContactType[] = ['bedrijf', 'creator', 'solliciteren']
-const MESSAGE_TOPICS: MessageTopic[] = ['offerte', 'gesprek', 'vraag', 'anders']
 
 export async function POST(request: Request) {
   try {
@@ -53,8 +53,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Ongeldig contacttype.' }, { status: 400 })
     }
 
-    if (!MESSAGE_TOPICS.includes(messageTopic)) {
-      return NextResponse.json({ error: 'Ongeldig berichttype.' }, { status: 400 })
+    if (!isValidMessageTopicForType(contactType, messageTopic)) {
+      return NextResponse.json({ error: 'Ongeldig berichttype voor dit contacttype.' }, { status: 400 })
     }
 
     if (contactType === 'bedrijf' && !bedrijf) {
@@ -104,16 +104,17 @@ export async function POST(request: Request) {
       from: fromEmail,
       to: notifyEmail,
       replyTo: email,
-      subject: `Nieuw contactformulier — ${fullName}`,
+      subject: getContactEmailSubject(contactType, messageTopic, fullName),
       html: `
         <p><strong>Nieuw bericht via /contact</strong></p>
         <ul>
           <li>Naam: ${escapeHtml(fullName)}</li>
           <li>E-mail: ${escapeHtml(email)}</li>
           <li>Telefoon: ${escapeHtml(telefoon)}</li>
-          <li>Type: ${escapeHtml(CONTACT_TYPE_LABELS[contactType])}</li>
+          <li>Contacttype: ${escapeHtml(CONTACT_TYPE_LABELS[contactType])}</li>
           ${contactType === 'bedrijf' && bedrijf ? `<li>Bedrijf: ${escapeHtml(bedrijf)}</li>` : ''}
-          <li>Bericht: ${escapeHtml(messageDetail)}</li>
+          <li>Onderwerp: ${escapeHtml(messageLabel)}</li>
+          <li>Detail: ${escapeHtml(messageDetail)}</li>
         </ul>
       `,
     })

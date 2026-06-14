@@ -188,6 +188,144 @@ function HeroSection() {
   )
 }
 
+const FIT_FOR_YOU = [
+  'Zichtbaarder willen worden, maar geen idee wat te posten',
+  'Tijd of inspiratie missen om actief te zijn op socials',
+  'Niet willen dansen op TikTok, maar wél willen opvallen',
+  'Meer klanten, personeel of merkherkenning willen',
+]
+
+const WITHOUT_IKR = [
+  'Je post af en toe iets, maar het krijgt amper bereik',
+  'Elke post lijkt op de vorige',
+  'Je verliest uren aan proberen, twijfelen en editen',
+  'Je weet niet goed wat werkt',
+  'Je doet het er "even bij"',
+]
+
+const WITH_IKR = [
+  'Strategisch geplande posts die wél impact maken',
+  'Creatieve formats die je merk uniek maken',
+  'Advertenties die wél leads en website clicks opleveren',
+  'Wij filmen, monteren en posten voor jou',
+  'Wij zijn je externe contentteam',
+]
+
+function FitForYouSection() {
+  return (
+    <section style={{ backgroundColor: ikr.creamLight, padding: 'clamp(3rem, 8vw, 100px) clamp(1rem, 6.8vw, 98px)' }}>
+      <div style={{ maxWidth: 800, margin: '0 auto', textAlign: 'center' }}>
+        <h2
+          style={{
+            ...displayFont,
+            fontSize: 'clamp(1.75rem, 5vw, 56px)',
+            textTransform: 'uppercase',
+            color: ikr.navy,
+            marginBottom: '1.5rem',
+          }}
+        >
+          Is dat wel iets voor mij?
+        </h2>
+        <p style={{ ...bodyFont, fontSize: 'clamp(1rem, 1.8vw, 20px)', color: ikr.navyText, marginBottom: '2rem' }}>
+          Twijfel je of TikTok iets voor jouw zaak is? Veel klanten dachten eerst: &quot;TikTok, da&apos;s toch
+          voor tieners?&quot; Tot ze zagen wat er mogelijk was.
+        </p>
+        <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 2rem', textAlign: 'left' }}>
+          {FIT_FOR_YOU.map((item) => (
+            <li
+              key={item}
+              style={{
+                ...bodyFont,
+                fontSize: 'clamp(0.95rem, 1.5vw, 18px)',
+                color: ikr.navyText,
+                padding: '0.65rem 0',
+                borderBottom: '1px solid rgba(32,23,55,0.08)',
+                paddingLeft: '1.5rem',
+                position: 'relative',
+              }}
+            >
+              <span style={{ position: 'absolute', left: 0, color: ikr.cyan }}>→</span>
+              {item}
+            </li>
+          ))}
+        </ul>
+        <Link
+          href="/pricing"
+          style={{
+            ...displayFont,
+            display: 'inline-block',
+            fontSize: 'clamp(0.9rem, 1.8vw, 22px)',
+            color: '#FFF9F1',
+            backgroundColor: ikr.navy,
+            borderRadius: 48,
+            padding: '0.5em 1.4em',
+            textDecoration: 'none',
+            textTransform: 'uppercase',
+          }}
+        >
+          Vraag onze prijzen aan
+        </Link>
+      </div>
+    </section>
+  )
+}
+
+function ComparisonSection() {
+  return (
+    <section style={{ backgroundColor: ikr.cream, padding: 'clamp(3rem, 8vw, 100px) clamp(1rem, 6.8vw, 98px)' }}>
+      <div style={{ maxWidth: 960, margin: '0 auto' }}>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: 'clamp(1.5rem, 4vw, 32px)',
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: '#FFF9F1',
+              borderRadius: 24,
+              padding: 'clamp(1.5rem, 3vw, 32px)',
+              border: '1px solid rgba(32,23,55,0.08)',
+            }}
+          >
+            <h3 style={{ ...displayFont, fontSize: 'clamp(1.25rem, 3vw, 36px)', color: ikr.navy, marginBottom: '1.25rem', textTransform: 'uppercase' }}>
+              Zonder IKR
+            </h3>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+              {WITHOUT_IKR.map((item) => (
+                <li key={item} style={{ ...bodyFont, fontSize: '0.95rem', color: ikr.navyText, marginBottom: 12, paddingLeft: 20, position: 'relative' }}>
+                  <span style={{ position: 'absolute', left: 0, opacity: 0.4 }}>✕</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div
+            style={{
+              backgroundColor: ikr.navy,
+              borderRadius: 24,
+              padding: 'clamp(1.5rem, 3vw, 32px)',
+            }}
+          >
+            <h3 style={{ ...displayFont, fontSize: 'clamp(1.25rem, 3vw, 36px)', color: '#FFF9F1', marginBottom: '1.25rem', textTransform: 'uppercase' }}>
+              Met IKR
+            </h3>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+              {WITH_IKR.map((item) => (
+                <li key={item} style={{ ...bodyFont, fontSize: '0.95rem', color: 'rgba(255,249,241,0.9)', marginBottom: 12, paddingLeft: 20, position: 'relative' }}>
+                  <span style={{ position: 'absolute', left: 0, color: ikr.cyan }}>✓</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 function ProcessSection() {
   return (
     <section style={{ backgroundColor: ikr.navy }}>
@@ -750,7 +888,7 @@ function CasesAndCTASection() {
               <h3 style={{ ...displayFont, fontSize: 'clamp(1.25rem, 3.33vw, 48px)', lineHeight: 1.15, textTransform: 'uppercase', color: '#FFF9F1', marginBottom: 'clamp(1.5rem, 3vw, 44px)' }}>
                 WIL JE BIJ IKNOWRIGHT WERKEN ALS FREELANCER?
               </h3>
-              <Link href="/contact" style={{ ...displayFont, display: 'inline-block', fontSize: 'clamp(1rem, 2.78vw, 40px)', color: ikr.navy, backgroundColor: '#FFF9F1', borderRadius: 48, padding: '0.4em 1.2em', textDecoration: 'none', textTransform: 'uppercase' }}>
+              <Link href="/contact?type=solliciteren" style={{ ...displayFont, display: 'inline-block', fontSize: 'clamp(1rem, 2.78vw, 40px)', color: ikr.navy, backgroundColor: '#FFF9F1', borderRadius: 48, padding: '0.4em 1.2em', textDecoration: 'none', textTransform: 'uppercase' }}>
                 SOLLICITEER NU
               </Link>
             </div>
@@ -784,6 +922,8 @@ export function AanpakPageContent() {
   return (
     <>
       <HeroSection />
+      <FitForYouSection />
+      <ComparisonSection />
       <ProcessSection />
       <CasesAndCTASection />
     </>

@@ -33,23 +33,30 @@ DaddyGo = shared hosting, geen Node.js. **Beslissing:** site op Vercel hosten, D
 
 **Status:** Uitgevoerd. Vercel Root Directory = `ikr-website`.
 
+### Legacy audit follow-up (jun 2026)
+**Beslissing:** Telefoon overal `+32 479 40 03 29`. Geen migratie oude landing/VSL (geen actieve ads). Over ons blijft op homepage — geen aparte `/over-ons`. Socials footer: LinkedIn + Instagram.
+
+**Future:** IKR roadmap/mijlpalen pagina; nieuwe landing page (vervanger WP landings). Zie `pdf-diensten-sync.md` voor align site ↔ tarieven-PDF.
+
+**Status:** Uitgevoerd (legal set, reviews, contact topics, Why TikTok, footer links).
+
 ---
 
 ## Homepage (`/`)
 
-_(geen pagina-specifieke beslissingen)_
+**Beslissing (jun 2026):** Why TikTok-sectie tussen proces en cases. Case preview = 3 linkbare cards i.p.v. static PNG. Echte testimonials (Anne Cornu, Anneke Govaerts, Maison Slash).
 
 ---
 
 ## Aanpak (`/aanpak`)
 
-_(geen pagina-specifieke beslissingen)_
+**Beslissing (jun 2026):** "Is dat wel iets voor mij?" + Zonder/Met IKR secties op pagina. Geen aparte `/jobs` — solliciteren via `/contact?type=solliciteren` met type-specifieke topics.
 
 ---
 
 ## Pricing (`/pricing`)
 
-**Beslissing (jun 2026):** Resend via `/api/pricing/request`. PDF statisch in `public/documents/`. From + notify = `contact@iknowright.be`. Creator/sollicitant → redirect contact, geen PDF-mail.
+**Beslissing (jun 2026):** Resend via `/api/pricing/request`. PDF statisch in `public/documents/`. From + notify = `contact@iknowright.be`. Creator/sollicitant → redirect contact, geen PDF-mail. Nav-label **Prijzen** (route blijft `/pricing`).
 
 ---
 
@@ -57,7 +64,7 @@ _(geen pagina-specifieke beslissingen)_
 
 **Beslissing:** Contact v5 als design-bron (niet v1–v4).
 
-**Beslissing (jun 2026):** Chat-UI met progressieve stappen. Submit via Resend (`/api/contact`) — één notificatiemail naar `contact@iknowright.be`, geen bevestigingsmail naar invuller. Zelfde Turnstile + GDPR + honeypot als pricing. Bedrijfsvraag alleen bij type `bedrijf`. Bericht = keuze uit 3 opties of "Anders" met vrij tekst.
+**Beslissing (jun 2026):** Chat-UI met progressieve stappen. Submit via Resend (`/api/contact`) — één notificatiemail naar `contact@iknowright.be`, geen bevestigingsmail naar invuller. Zelfde Turnstile + GDPR + honeypot als pricing. Bedrijfsvraag alleen bij type `bedrijf`. **Topics per contacttype** (bedrijf / creator / solliciteren) via `getMessageTopicsForType`; mail subject prefix `[Creator]` / `[Sollicitatie]` waar van toepassing. Telefoon: `+32 479 40 03 29` (`site-contact.ts`).
 
 ---
 
@@ -73,4 +80,4 @@ Portfolio in **twee lagen** — geen fake case-pagina's.
 
 **Niet doen:** `/cases/template` publiek linken. Wasbar/Ohma/MS zijn uit het grid.
 
-**Beslissing (jun 2026):** Top TikTok-video's per kanaal lokaal in `public/videos/cases/`. Overview-thumbnail via `CASE_GRID_PREVIEW` — niet altijd hoogste views (Maison Slash: seksenquete uitgesloten). Galerij-klik opent TikTok-post. Views-badge = oog-icoon + "XK views".
+**Beslissing (jun 2026):** Top TikTok-video's per kanaal lokaal in `public/videos/cases/`. Overview-thumbnail via `CASE_GRID_PREVIEW` — niet altijd hoogste views (Maison Slash: seksenquete uitgesloten). Galerij-klik opent TikTok-post. Views-badge = oog-icoon + "XK views". Testimonial marquee = echte klantquotes (geen fake CEO-namen). Footer anchor `#food` op food-sectie.

@@ -6,16 +6,48 @@ import { caseGridItems, foodWorkItems } from '@/data/cases'
 import { bodyFont, displayFont, ikr } from '@/lib/ikr-styles'
 
 const testimonials = [
-  { name: 'Sabrina', role: 'Slagerij VDC', avatar: '#C5B094' },
-  { name: 'Mathis', role: 'Bremate', avatar: '#8BA4C0' },
-  { name: 'Mark', role: 'CEO Facebook', avatar: '#A8C5A0' },
-  { name: 'Lisa', role: 'Panos', avatar: '#D4A5A5' },
-  { name: 'Tom', role: "O'Tacos", avatar: '#B5A8D4' },
-  { name: 'Noah', role: 'Aiki', avatar: '#C0B88B' },
+  {
+    name: 'Anne Cornu',
+    role: 'CEO Maison Slash',
+    avatar: '#C5B094',
+    quote:
+      'Zij snappen TikTok. Ik ben oprecht blij dat ze ons helpen om onze TikTok naar een hoger niveau te duwen.',
+  },
+  {
+    name: 'Dr. Anneke Govaerts',
+    role: 'Migraine specialiste',
+    avatar: '#8BA4C0',
+    quote:
+      'Zij hebben mijn hand vastgehouden bij de eerste stapjes. Sindsdien kreeg ik veel meer media-aandacht.',
+  },
+  {
+    name: 'Tempus',
+    role: 'Thuisverpleging',
+    avatar: '#A8C5A0',
+    quote:
+      'Op jobbeurzen is Tempus hét bedrijf waar jonge verpleegkundigen het meeste over praten.',
+  },
+  {
+    name: 'Maison Slash',
+    role: 'Magazines voor ouders',
+    avatar: '#D4A5A5',
+    quote:
+      'Onze cijfers explodeerden pas met IKnowRight. Eén video ging viraal en zette alles in beweging.',
+  },
+  {
+    name: 'Anneke Govaerts',
+    role: 'Case study',
+    avatar: '#B5A8D4',
+    quote:
+      'In anderhalve maand meer dan 1.300 volgers en media-aandacht van VRT en Radio 1.',
+  },
+  {
+    name: 'Tempus',
+    role: 'HR marketing',
+    avatar: '#C0B88B',
+    quote: '650K+ unieke kijkers in vier maanden — via TikTok, niet via vacaturesites.',
+  },
 ] as const
-
-const QUOTE =
-  'Ik ben super tevreden over de groei van mijn sociale media dankzij IKnowRight!'
 
 const testimonialRows = [
   [0, 1, 2, 3, 4, 5],
@@ -385,11 +417,13 @@ function TestimonialBubble({
   name,
   role,
   avatar,
+  quote,
   tail,
 }: {
   name: string
   role: string
   avatar: string
+  quote: string
   tail: 'left' | 'right'
 }) {
   const [liked, setLiked] = useState(false)
@@ -427,7 +461,7 @@ function TestimonialBubble({
               lineHeight: '140%',
             }}
           >
-            {QUOTE}
+            {quote}
           </p>
         </div>
       </div>
@@ -492,6 +526,7 @@ function TestimonialMarqueeRow({
               name={t.name}
               role={t.role}
               avatar={t.avatar}
+              quote={t.quote}
               tail={i % 2 === 0 ? 'left' : 'right'}
             />
           )
@@ -623,7 +658,7 @@ export function CasesPageContent() {
             </div>
           </div>
 
-          <div style={{ marginTop: 'clamp(3rem, 8vw, 100px)' }}>
+          <div id="food" style={{ marginTop: 'clamp(3rem, 8vw, 100px)' }}>
             <p
               style={{
                 ...displayFont,

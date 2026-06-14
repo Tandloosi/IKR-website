@@ -8,6 +8,7 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "eslint .",
+    "audit:legacy": "node scripts/audit-legacy-site.mjs",
     "start": "next start"
   },
   "dependencies": {

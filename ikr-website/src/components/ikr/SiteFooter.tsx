@@ -1,8 +1,28 @@
 import Link from 'next/link'
+import { IKR_PHONE, IKR_PHONE_HREF, SOCIAL_LINKS } from '@/data/site-contact'
 
-const NAV = ['Home', 'Wat we doen', 'Werkwijze', 'Pricing', 'Contact']
-const CASES = ['Panos', "O'Tacos", 'Aiki', 'Andere cases']
-const LEGAL = ['Privacy Policy', 'Cookie Policy', 'Algemene voorwaarden']
+const NAV: { label: string; href: string }[] = [
+  { label: 'Home', href: '/' },
+  { label: 'Aanpak', href: '/aanpak' },
+  { label: 'Prijzen', href: '/pricing' },
+  { label: 'Cases', href: '/cases' },
+  { label: 'Contact', href: '/contact' },
+]
+
+const CASES: { label: string; href: string }[] = [
+  { label: 'Tempus', href: '/cases/tempus' },
+  { label: 'Maison Slash', href: '/cases/maison-slash' },
+  { label: 'Anneke Govaerts', href: '/cases/anneke-govaerts' },
+  { label: 'Alle cases', href: '/cases' },
+  { label: 'Food werk', href: '/cases#food' },
+]
+
+const LEGAL: { label: string; href: string }[] = [
+  { label: 'Privacybeleid', href: '/privacy' },
+  { label: 'Cookiebeleid', href: '/cookies' },
+  { label: 'Algemene voorwaarden', href: '/algemene-voorwaarden' },
+  { label: 'Bedrijfsgegevens', href: '/legal' },
+]
 
 const LINK: React.CSSProperties = {
   fontFamily: 'var(--font-inter)',
@@ -107,28 +127,23 @@ function ContactValue({ children }: { children: React.ReactNode }) {
 }
 
 // Simple SVG social icons
-function IconTikTok() {
+function IconLinkedIn() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-      <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.02a8.18 8.18 0 004.78 1.52V7.1a4.85 4.85 0 01-1.01-.41z" fill="var(--ikr-navy)"/>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path
+        d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-12h4v2a4 4 0 014-4zM2 9h4v12H2V9zm2-6a2 2 0 110 4 2 2 0 010-4z"
+        fill="var(--ikr-navy)"
+      />
     </svg>
   )
 }
 
 function IconInstagram() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden>
       <rect x="2" y="2" width="20" height="20" rx="5" stroke="var(--ikr-navy)" strokeWidth="2"/>
       <circle cx="12" cy="12" r="4" stroke="var(--ikr-navy)" strokeWidth="2"/>
       <circle cx="17.5" cy="6.5" r="1.5" fill="var(--ikr-navy)"/>
-    </svg>
-  )
-}
-
-function IconFacebook() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-      <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" fill="var(--ikr-navy)"/>
     </svg>
   )
 }
@@ -164,8 +179,8 @@ export function SiteFooter() {
             <ColHeader>Navigatie</ColHeader>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 'clamp(8px, 1.1vw, 16px)' }}>
               {NAV.map((l) => (
-                <li key={l}>
-                  <Link href="#" style={LINK}>{l}</Link>
+                <li key={l.href}>
+                  <Link href={l.href} style={LINK}>{l.label}</Link>
                 </li>
               ))}
             </ul>
@@ -176,8 +191,8 @@ export function SiteFooter() {
             <ColHeader>Cases</ColHeader>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 'clamp(8px, 1.1vw, 16px)' }}>
               {CASES.map((l) => (
-                <li key={l}>
-                  <Link href="#" style={LINK}>{l}</Link>
+                <li key={l.href}>
+                  <Link href={l.href} style={LINK}>{l.label}</Link>
                 </li>
               ))}
             </ul>
@@ -188,8 +203,8 @@ export function SiteFooter() {
             <ColHeader>Legal</ColHeader>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 'clamp(8px, 1.1vw, 16px)' }}>
               {LEGAL.map((l) => (
-                <li key={l}>
-                  <Link href="#" style={LINK}>{l}</Link>
+                <li key={l.href}>
+                  <Link href={l.href} style={LINK}>{l.label}</Link>
                 </li>
               ))}
             </ul>
@@ -222,7 +237,11 @@ export function SiteFooter() {
               <div style={{ display: 'flex', alignItems: 'center', gap: 16, justifyContent: 'space-between' }}>
                 <div>
                   <ContactLabel>Telefoonnummer</ContactLabel>
-                  <ContactValue>0471 57 13 99</ContactValue>
+                  <ContactValue>
+                    <a href={IKR_PHONE_HREF} style={{ color: 'inherit', textDecoration: 'none' }}>
+                      {IKR_PHONE}
+                    </a>
+                  </ContactValue>
                 </div>
                 <div style={{
                   width: 48, height: 48, borderRadius: '50%',
@@ -252,13 +271,14 @@ export function SiteFooter() {
               </p>
               <div style={{ display: 'flex', gap: 12 }}>
                 {[
-                  { icon: <IconTikTok />, label: 'TikTok' },
-                  { icon: <IconInstagram />, label: 'Instagram' },
-                  { icon: <IconFacebook />, label: 'Facebook' },
-                ].map(({ icon, label }) => (
+                  { icon: <IconLinkedIn />, label: 'LinkedIn', href: SOCIAL_LINKS.linkedin },
+                  { icon: <IconInstagram />, label: 'Instagram', href: SOCIAL_LINKS.instagram },
+                ].map(({ icon, label, href }) => (
                   <Link
                     key={label}
-                    href="#"
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     aria-label={label}
                     style={{
                       width: 'clamp(44px, 4.73vw, 68px)',

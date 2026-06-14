@@ -6,22 +6,24 @@
 
 ## Algemeen
 1. **Gsm/mobile versie** — responsive layout voor alle pagina's (nu desktop-first / vw-positioning)
-2. Contact- en pricing-formulier live testen op Vercel-URL
+2. Contact- en pricing-formulier **live testen** op Vercel-URL (creator/solliciteren topics + PDF-mail)
 3. OG-image vervangen (`ikr-website/public/website-template-OG.webp`)
-4. _(uitgesteld)_ Custom domain `iknowright.be` via DaddyGo DNS → Vercel
-5. _(bij DNS)_ Vercel Hobby → Pro ($20/maand) vóór productie op eigen domein
+4. **PDF-diensten sync** — zie [`pdf-diensten-sync.md`](pdf-diensten-sync.md)
+5. _(uitgesteld)_ Custom domain `iknowright.be` via DaddyGo DNS → Vercel
+6. _(bij DNS)_ Vercel Hobby → Pro ($20/maand) vóór productie op eigen domein
+7. _(future)_ IKR roadmap/mijlpalen pagina; nieuwe landing page (vervanger WP landings)
 
 ## Homepage (`/`)
-OG-image vervangen — nu nog Next.js template (`website-template-OG.webp`).
+Audit follow-up live. Optioneel: OG-image vervangen. Her-run `npm run audit:legacy` na grote content-wijzigingen.
 
 ## Aanpak (`/aanpak`)
-Gsm-placeholders vervangen zodra Figma exports beschikbaar zijn; `card top.png` voor freelancer CTA.
+"Is dat wel iets voor mij" + Zonder/Met IKR live. Gsm-placeholders + freelancer CTA asset (`card top.png`) indien Figma exports klaar.
 
 ## Pricing (`/pricing`)
-Live end-to-end test: bedrijf-formulier → PDF-mail + notify naar `contact@iknowright.be`. Check Resend dashboard bij uitblijvende mail.
+PDF-diensten sync — zie [`pdf-diensten-sync.md`](pdf-diensten-sync.md). Live end-to-end test formulier → PDF-mail.
 
 ## Contact (`/contact`)
-Live end-to-end test op Vercel-URL. Optioneel: telefoonnummer footer vs pagina gelijk trekken.
+Live test creator/solliciteren topics + mail subject `[Creator]`/`[Sollicitatie]`. Test op Vercel.
 
 ## Cases (`/cases`)
 _(v1 klaar — optioneel later)_

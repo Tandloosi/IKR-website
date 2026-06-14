@@ -6,6 +6,7 @@ import { StatsSection } from '@/components/ikr/StatsSection'
 import { TeamSection } from '@/components/ikr/TeamSection'
 import { ProcessSection } from '@/components/ikr/ProcessSection'
 import { CasesSection } from '@/components/ikr/CasesSection'
+import { WhyTikTokSection } from '@/components/ikr/WhyTikTokSection'
 import { ReviewsSection } from '@/components/ikr/ReviewsSection'
 import { CTASection } from '@/components/ikr/CTASection'
 import { SiteFooter } from '@/components/ikr/SiteFooter'
@@ -20,6 +21,7 @@ export default function HomePage() {
       <StatsSection />
       <TeamSection />
       <ProcessSection />
+      <WhyTikTokSection />
       <CasesSection />
       <ReviewsSection />
       <CTASection />
