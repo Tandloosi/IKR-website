@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useRef, useState } from 'react'
-import { caseGridItems } from '@/data/cases'
+import { caseGridItems, foodWorkItems } from '@/data/cases'
 import { bodyFont, displayFont, ikr } from '@/lib/ikr-styles'
 
 const testimonials = [
@@ -22,6 +22,21 @@ const testimonialRows = [
   [2, 3, 4, 5, 0, 1],
   [4, 5, 0, 1, 2, 3],
 ] as const
+
+function ViewsIcon({ size = 14, color = '#201737' }: { size?: number; color?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M2.5 12C4.5 7.5 8 5 12 5s7.5 2.5 9.5 7c-2 4.5-5.5 7-9.5 7s-7.5-2.5-9.5-7Z"
+        stroke={color}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="12" cy="12" r="2.5" stroke={color} strokeWidth="2" />
+    </svg>
+  )
+}
 
 function ArrowIcon({ size = 18, color = '#FFF9F1' }: { size?: number; color?: string }) {
   return (
@@ -62,15 +77,43 @@ function CasePlayButton() {
   )
 }
 
-function CaseClientButton({ name, slug }: { name: string; slug: string }) {
-  const [hovered, setHovered] = useState(false)
+function ClientLogo({ name, logo }: { name: string; logo?: string }) {
+  if (logo) {
+    return (
+      /* eslint-disable-next-line @next/next/no-img-element */
+      <img
+        src={logo}
+        alt={`${name} logo`}
+        style={{
+          display: 'block',
+          height: 'clamp(28px, 6vw, 44px)',
+          width: 'auto',
+        }}
+      />
+    )
+  }
 
   return (
-    <Link
-      href={`/cases/${slug}`}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onClick={(e) => e.stopPropagation()}
+    <span
+      style={{
+        ...displayFont,
+        fontSize: 'clamp(0.55rem, 1vw, 13px)',
+        color: '#FFF9F1',
+        backgroundColor: 'rgba(32,23,55,0.75)',
+        borderRadius: 48,
+        padding: '0.35em 0.75em',
+        textTransform: 'uppercase',
+        whiteSpace: 'nowrap',
+      }}
+    >
+      {name}
+    </span>
+  )
+}
+
+function CaseClientLabel({ name, hovered }: { name: string; hovered: boolean }) {
+  return (
+    <span
       style={{
         position: 'absolute',
         bottom: 'clamp(10px, 7%, 18px)',
@@ -82,7 +125,6 @@ function CaseClientButton({ name, slug }: { name: string; slug: string }) {
         backgroundColor: '#FFF9F1',
         borderRadius: 48,
         padding: '0.45em 1.1em',
-        textDecoration: 'none',
         textTransform: 'uppercase',
         whiteSpace: 'nowrap',
         zIndex: 3,
@@ -93,7 +135,7 @@ function CaseClientButton({ name, slug }: { name: string; slug: string }) {
       }}
     >
       {name}
-    </Link>
+    </span>
   )
 }
 
@@ -105,16 +147,19 @@ function CaseVideoCard({
 }: {
   src: string
   clientName: string
-  logo: string
+  logo?: string
   slug: string
 }) {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const [hovered, setHovered] = useState(false)
 
   const handleEnter = () => {
+    setHovered(true)
     videoRef.current?.play().catch(() => {})
   }
 
   const handleLeave = () => {
+    setHovered(false)
     const video = videoRef.current
     if (!video) return
     video.pause()
@@ -122,16 +167,20 @@ function CaseVideoCard({
   }
 
   return (
-    <div
+    <Link
+      href={`/cases/${slug}`}
+      aria-label={`Case ${clientName}`}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
       style={{
+        display: 'block',
         position: 'relative',
         aspectRatio: '9 / 16',
         borderRadius: 'clamp(18px, 2vw, 28px)',
         overflow: 'hidden',
         backgroundColor: '#D0C8BC',
         cursor: 'pointer',
+        textDecoration: 'none',
       }}
     >
       <video
@@ -160,19 +209,136 @@ function CaseVideoCard({
           zIndex: 3,
         }}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={logo}
-          alt={`${clientName} logo`}
-          style={{
-            display: 'block',
-            height: 'clamp(28px, 6vw, 44px)',
-            width: 'auto',
-          }}
-        />
+        <ClientLogo name={clientName} logo={logo} />
       </div>
       <CasePlayButton />
-      <CaseClientButton name={clientName} slug={slug} />
+      <CaseClientLabel name={clientName} hovered={hovered} />
+    </Link>
+  )
+}
+
+function FoodWorkStatBadge({ views, highlight }: { views: string; highlight: string }) {
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        bottom: 'clamp(10px, 7%, 18px)',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 4,
+        zIndex: 3,
+        width: 'calc(100% - 24px)',
+      }}
+    >
+      {views !== '—' && (
+        <span
+          style={{
+            ...displayFont,
+            fontSize: 'clamp(0.6rem, 1.15vw, 15px)',
+            color: ikr.navy,
+            backgroundColor: ikr.cyan,
+            borderRadius: 48,
+            padding: '0.35em 0.9em',
+            textTransform: 'uppercase',
+            whiteSpace: 'nowrap',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 5,
+          }}
+        >
+          <ViewsIcon size={12} />
+          {views} views
+        </span>
+      )}
+      <span
+        style={{
+          ...bodyFont,
+          fontSize: 'clamp(0.6rem, 0.95vw, 12px)',
+          color: '#FFF9F1',
+          textAlign: 'center',
+          lineHeight: 1.3,
+          textShadow: '0 1px 6px rgba(32,23,55,0.6)',
+        }}
+      >
+        {highlight}
+      </span>
+    </div>
+  )
+}
+
+function FoodWorkVideoCard({
+  src,
+  clientName,
+  logo,
+  views,
+  highlight,
+}: {
+  src: string
+  clientName: string
+  logo?: string
+  views: string
+  highlight: string
+}) {
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  const handleEnter = () => {
+    videoRef.current?.play().catch(() => {})
+  }
+
+  const handleLeave = () => {
+    const video = videoRef.current
+    if (!video) return
+    video.pause()
+    video.currentTime = 0
+  }
+
+  return (
+    <div
+      onMouseEnter={handleEnter}
+      onMouseLeave={handleLeave}
+      style={{
+        position: 'relative',
+        aspectRatio: '9 / 16',
+        borderRadius: 'clamp(18px, 2vw, 28px)',
+        overflow: 'hidden',
+        backgroundColor: '#D0C8BC',
+        cursor: 'default',
+      }}
+    >
+      <video
+        ref={videoRef}
+        src={src}
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+      />
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background:
+            'linear-gradient(180deg, rgba(32,23,55,0.35) 0%, transparent 28%, transparent 50%, rgba(32,23,55,0.8) 100%)',
+          pointerEvents: 'none',
+          zIndex: 1,
+        }}
+      />
+      <div
+        style={{
+          position: 'absolute',
+          top: 'clamp(10px, 4%, 16px)',
+          left: 'clamp(10px, 4%, 16px)',
+          zIndex: 3,
+        }}
+      >
+        <ClientLogo name={clientName} logo={logo} />
+      </div>
+      <CasePlayButton />
+      <FoodWorkStatBadge views={views} highlight={highlight} />
     </div>
   )
 }
@@ -452,6 +618,51 @@ export function CasesPageContent() {
                   clientName={item.clientName}
                   logo={item.logo}
                   slug={item.slug}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div style={{ marginTop: 'clamp(3rem, 8vw, 100px)' }}>
+            <p
+              style={{
+                ...displayFont,
+                fontSize: 'clamp(1rem, 2.2vw, 32px)',
+                color: ikr.navy,
+                textTransform: 'uppercase',
+                marginBottom: 'clamp(8px, 1vw, 12px)',
+              }}
+            >
+              Food werk
+            </p>
+            <p
+              style={{
+                ...bodyFont,
+                fontSize: 'clamp(0.85rem, 1.2vw, 16px)',
+                color: ikr.navyText,
+                marginBottom: 'clamp(1.5rem, 3vw, 32px)',
+                maxWidth: 560,
+                lineHeight: 1.5,
+              }}
+            >
+              Influencer-opdrachten binnen food — bewijs dat we de sector kennen, zonder volledige
+              case study.
+            </p>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+                gap: 'clamp(12px, 1.8vw, 24px)',
+              }}
+            >
+              {foodWorkItems.map((item) => (
+                <FoodWorkVideoCard
+                  key={item.id}
+                  src={item.video}
+                  clientName={item.clientName}
+                  logo={item.logo}
+                  views={item.views}
+                  highlight={item.highlight}
                 />
               ))}
             </div>

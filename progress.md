@@ -8,12 +8,17 @@
 
 - **Stack:** Next.js 16 + React 19 + Tailwind 4 + GSAP
 - **Repo:** https://github.com/Tandloosi/IKR-website
-- **Deploy:** nog niet — lokaal via `npm run dev`
+- **Lokaal:** `cd ikr-website && npm run dev`
+- **Deploy:** live op Vercel (Hobby), auto-deploy bij push naar `master`
+- **Root directory:** `ikr-website` (hernoemd van `IKR website` — spaties breken Vercel serverless functions)
+- **Laatste commit:** `a481522`
 - Design assets in `design/figma-pages/` + `design/figma-sections/`
 - Payload verwijderd → puur Next.js
 - Design tokens in `globals.css`, video's in `src/data/videos.ts`
 - OG-image nog vervangen
-- Vercel + DNS DaddyGo nog niet ingesteld
+- Custom domain `iknowright.be` — bewust uitgesteld (DNS DaddyGo later)
+- Vercel env vars ingesteld (Resend + Turnstile)
+- Gsm/mobile versie nog niet gebouwd
 
 ---
 
@@ -22,7 +27,7 @@
 **Status:** live, build ok
 
 - Hero, carousel, brand strip, stats, team, proces, cases, reviews, CTA, footer
-- Laatste commit ref: `c6de0ae`
+- Live op Vercel
 
 ---
 
@@ -61,18 +66,26 @@
 - Submit via `/api/contact` → Resend notificatie naar `contact@iknowright.be` (replyTo = invuller)
 - Turnstile + GDPR + honeypot (zelfde patroon als pricing)
 - Teamfoto: `public/images/contact-team.jpg` (geëxtraheerd uit design)
-- Getest en werkend lokaal
+- Getest lokaal; live test op Vercel nog doen (env vars)
 
 ---
 
 ## Cases (`/cases`)
 
-**Status:** overzicht + detail-template herstructureerd
+**Status:** v1 klaar, live na push
 
-- Overzicht (`/cases`): grid met hover-video's, testimonials marquee, knoppen linken naar detail
-- Detail-template (`/cases/template`): casespecifiek verhaal (niet meer generiek Aanpak-proces)
-  - Hero + outcome line → samenvatting → resultaten metrics → videogalerij → verhaalblokken → klantquote → contact-CTA
-- Data-model in `src/data/cases.ts` — `CaseDetail` type met `summary`, `results`, `story`, `testimonial`
-- Grid items hebben `slug` — Tempus live op `/cases/tempus` (content van iknowright.be/cases/tempus)
-- Open: tempus-video lokaal hosten (`public/videos/tempus-case.mp4`), overige cases invullen
-- Tempus stockfoto's: `public/images/cases/tempus/` (Unsplash, gratis commercieel)
+**Laag 1 — Cases (detailpagina's):**
+- Tempus, Maison Slash, Anneke Govaerts — elk met top 4 TikTok-video's lokaal (`public/videos/cases/`)
+- Overview: hele kaart klikbaar → detail; galerij: klik → TikTok-post
+- Views-badge met oog-icoon (niet likes)
+- Maison Slash overview-thumbnail = `7573647751959858464.mp4` (niet seksenquete-topvideo)
+
+**Laag 2 — Food werk:**
+- Aïki, O'Tacos, Panos — influencer-grid, views + highlight, geen detailpagina
+- Video's via WP `.mov`
+
+**Open (nice-to-have):**
+- Hero/storyfoto's + logo's voor Maison Slash & Anneke
+- Food `.mov` lokaal als `.mp4` hosten
+- Panos view-stat invullen
+- Echte food retainer-cases later → laag 1

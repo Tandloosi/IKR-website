@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: `${data.bedrijf} — Case — IKnowRight`,
-    description: `Case study: hoe IKnowRight {bedrijf} hielp met TikTok-content.`,
+    description: `Case study: hoe IKnowRight ${data.bedrijf} hielp met TikTok-content.`,
   }
 }
 

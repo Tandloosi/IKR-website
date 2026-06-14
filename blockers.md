@@ -5,7 +5,9 @@
 ---
 
 ## Algemeen
-- **Deploy:** Vercel project + DNS nog niet ingesteld
+- **Custom domain:** uitgesteld — DNS DaddyGo → Vercel komt later
+- **Vercel plan:** Hobby → Pro ($20/maand) pas bij live op eigen domein
+- **Gsm/mobile:** site is nog niet responsive — volgende grote taak
 
 ## Homepage (`/`)
 _(geen)_
@@ -21,5 +23,6 @@ _(geen)_
 _(geen — flow getest en werkend lokaal)_
 
 ## Cases (`/cases`)
-- **Case-content:** alleen Tempus heeft echte detailpagina; Wasbar, Ohma en MS linken nog naar `/cases/template`
-- **Tempus-video:** nog extern gehost op oude WP-site — lokaal kopiëren naar `public/videos/tempus-case.mp4`
+_(geen blockers — v1 klaar)_
+
+Optioneel later: hero/storyfoto's Maison Slash & Anneke; food `.mov` lokaal hosten; echte food retainer-cases.

@@ -24,7 +24,14 @@
 Eén component: `Navbar.tsx` (pill-bar). Niet per pagina nabouwen.
 
 ### Hosting
-DaddyGo = shared hosting, geen Node.js. **Beslissing:** site op Vercel hosten, DaddyGo-domein via DNS wijzen. DaddyGo behouden voor e-mail. **Status:** nog niet uitgevoerd.
+DaddyGo = shared hosting, geen Node.js. **Beslissing:** site op Vercel hosten, DaddyGo-domein via DNS wijzen. DaddyGo behouden voor e-mail. **Status:** Vercel live (Hobby, jun 2026). Custom domain nog niet gekoppeld.
+
+### Mapnaam `ikr-website` (jun 2026)
+**Beslissing:** Next.js app hernoemd van `IKR website` → `ikr-website`.
+
+**Waarom:** Vercel weigert serverless function-paden met spaties.
+
+**Status:** Uitgevoerd. Vercel Root Directory = `ikr-website`.
 
 ---
 
@@ -56,4 +63,14 @@ _(geen pagina-specifieke beslissingen)_
 
 ## Cases (`/cases`)
 
-_(nog niet gebouwd)_
+Portfolio in **twee lagen** — geen fake case-pagina's.
+
+**Laag 1 — Cases (`caseGridItems` + `caseDetails`):** volledige case studies met detailpagina. Nu: Tempus, Maison Slash, Anneke Govaerts. Criteria: doel, aanpak, cijfers, minstens één concreet resultaat. Nieuwe case = kopieer `caseDetailTemplate`, zet in `caseDetails` + `caseGridItems`.
+
+**Laag 2 — Food werk (`foodWorkItems`):** influencer-opdrachten binnen food. Grid met video + views + highlight. **Geen detailpagina**, geen verzonnen verhaal. Tonen dat IKR food kent; geen retainer-case pretenderen.
+
+**Later:** echte food cases (langdurige samenwerkingen) schuiven naar laag 1 wanneer content klaar is. Panos/O'Tacos/Aïki blijven in laag 2 tot er een volledig verhaal is.
+
+**Niet doen:** `/cases/template` publiek linken. Wasbar/Ohma/MS zijn uit het grid.
+
+**Beslissing (jun 2026):** Top TikTok-video's per kanaal lokaal in `public/videos/cases/`. Overview-thumbnail via `CASE_GRID_PREVIEW` — niet altijd hoogste views (Maison Slash: seksenquete uitgesloten). Galerij-klik opent TikTok-post. Views-badge = oog-icoon + "XK views".

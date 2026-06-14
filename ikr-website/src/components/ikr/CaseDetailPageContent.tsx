@@ -22,6 +22,21 @@ function ArrowIcon({ size = 18, color = '#FFF9F1' }: { size?: number; color?: st
   )
 }
 
+function ViewsIcon({ size = 14, color = '#201737' }: { size?: number; color?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M2.5 12C4.5 7.5 8 5 12 5s7.5 2.5 9.5 7c-2 4.5-5.5 7-9.5 7s-7.5-2.5-9.5-7Z"
+        stroke={color}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="12" cy="12" r="2.5" stroke={color} strokeWidth="2" />
+    </svg>
+  )
+}
+
 function TagPill({ children }: { children: React.ReactNode }) {
   return (
     <span
@@ -57,28 +72,11 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
   )
 }
 
-function HoverVideo({ src, stat }: { src: string; stat?: string }) {
+function HoverVideo({ src, stat, tiktokUrl }: { src: string; stat?: string; tiktokUrl?: string }) {
   const videoRef = useRef<HTMLVideoElement>(null)
 
-  return (
-    <div
-      onMouseEnter={() => videoRef.current?.play().catch(() => {})}
-      onMouseLeave={() => {
-        const v = videoRef.current
-        if (!v) return
-        v.pause()
-        v.currentTime = 0
-      }}
-      style={{
-        position: 'relative',
-        aspectRatio: '9 / 16',
-        borderRadius: 'clamp(18px, 2vw, 28px)',
-        overflow: 'hidden',
-        backgroundColor: '#D0C8BC',
-        flexShrink: 0,
-        cursor: 'pointer',
-      }}
-    >
+  const content = (
+    <>
       <video
         ref={videoRef}
         src={src}
@@ -101,11 +99,10 @@ function HoverVideo({ src, stat }: { src: string; stat?: string }) {
             backgroundColor: ikr.cyan,
             borderRadius: 48,
             padding: '0.3em 0.75em',
+            pointerEvents: 'none',
           }}
         >
-          <span style={{ fontSize: 12 }} aria-hidden>
-            ♥
-          </span>
+          <ViewsIcon size={13} />
           <span
             style={{
               ...displayFont,
@@ -113,7 +110,7 @@ function HoverVideo({ src, stat }: { src: string; stat?: string }) {
               color: ikr.navy,
             }}
           >
-            {stat}
+            {stat} views
           </span>
         </div>
       )}
@@ -136,6 +133,49 @@ function HoverVideo({ src, stat }: { src: string; stat?: string }) {
       >
         <ArrowIcon size={24} />
       </div>
+    </>
+  )
+
+  const shellStyle = {
+    position: 'relative' as const,
+    aspectRatio: '9 / 16',
+    borderRadius: 'clamp(18px, 2vw, 28px)',
+    overflow: 'hidden' as const,
+    backgroundColor: '#D0C8BC',
+    flexShrink: 0,
+    cursor: 'pointer',
+    display: 'block',
+    textDecoration: 'none',
+  }
+
+  const hoverHandlers = {
+    onMouseEnter: () => videoRef.current?.play().catch(() => {}),
+    onMouseLeave: () => {
+      const v = videoRef.current
+      if (!v) return
+      v.pause()
+      v.currentTime = 0
+    },
+  }
+
+  if (tiktokUrl) {
+    return (
+      <a
+        href={tiktokUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Bekijk op TikTok"
+        style={shellStyle}
+        {...hoverHandlers}
+      >
+        {content}
+      </a>
+    )
+  }
+
+  return (
+    <div style={shellStyle} {...hoverHandlers}>
+      {content}
     </div>
   )
 }
@@ -167,12 +207,14 @@ function CaseDetailHero({ data }: { data: CaseDetail }) {
             >
               {data.bedrijf}
             </h1>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={data.logo}
-              alt={`${data.bedrijf} logo`}
-              style={{ height: 'clamp(36px, 5vw, 56px)', width: 'auto', display: 'block' }}
-            />
+            {data.logo && (
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img
+                src={data.logo}
+                alt={`${data.bedrijf} logo`}
+                style={{ height: 'clamp(36px, 5vw, 56px)', width: 'auto', display: 'block' }}
+              />
+            )}
           </div>
           <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
             {data.tags.map((tag) => (
@@ -335,7 +377,7 @@ function VideoGallery({ videos }: { videos: CaseDetail['videos'] }) {
         >
           {videos.map((v, i) => (
             <div key={i} style={{ width: 'clamp(140px, 18vw, 220px)' }}>
-              <HoverVideo src={v.src} stat={v.stat} />
+              <HoverVideo src={v.src} stat={v.stat} tiktokUrl={v.tiktokUrl} />
             </div>
           ))}
         </div>

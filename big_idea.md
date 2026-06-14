@@ -36,4 +36,4 @@ Direct contact: chat-stijl formulier + contactinfo + teamfoto.
 
 ## Cases (`/cases`)
 
-Portfolio-overzicht + detailpagina's (Panos, O'Tacos, Aiki, …). Social proof.
+Portfolio-overzicht in twee lagen: volledige case studies (detailpagina) + food influencer-werk (grid zonder detail). Social proof zonder fake cases.
